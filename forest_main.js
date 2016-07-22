@@ -80,11 +80,80 @@ board.on("ready", function() {
     pump.off();
 
 
-    var motor = new five.Motor({
+    var nute1 = new five.Motor({
         controller: "PCA9685",
         address: 0x60,
-        pin: 0
+        frequency: 200,
+        pins: {
+            pwm: 8,
+            dir: 9,
+            cdir: 10
+        }
     });
+
+    var nute2 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x60,
+        frequency: 200,
+        pins: {
+            pwm: 13,
+            dir: 12,
+            cdir: 11
+        }
+    });
+    var nute3 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x60,
+        frequency: 200,
+        pins: {
+            pwm: 2,
+            dir: 3,
+            cdir: 4
+        }
+
+    });
+    var nute4 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x60,
+        frequency: 200,
+        pins: {
+            pwm: 7,
+            dir: 6,
+            cdir: 5
+        }
+    });
+    var nute5 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x61,
+        frequency: 200,
+        pins: {
+            pwm: 8,
+            dir: 9,
+            cdir: 10
+
+        }
+    });
+    var exitmotor1 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x61,
+        frequency: 200,
+        pins: {
+            pwm: 2,
+            dir: 3,
+            cdir: 4
+        }
+    });
+    var exitmotor2 = new five.Motor({
+        controller: "PCA9685",
+        address: 0x61,
+        frequency: 200,
+        pins: {
+            pwm: 7,
+            dir: 6,
+            cdir: 5
+        }
+    });
+
 
     this.repl.inject({
         in_sol: in_sol,
@@ -102,7 +171,13 @@ board.on("ready", function() {
         exhaust: exhaust,
         chiller: chiller,
         pump: pump,
-        motor: motor
+        nute1: nute1,
+        nute2: nute2,
+        nute3: nute3,
+        nute4: nute4,
+        nute5: nute5,
+        exitmotor1: exitmotor1,
+        exitmotor2: exitmotor2
     });
 
 
