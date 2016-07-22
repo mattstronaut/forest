@@ -133,17 +133,7 @@ board.on("ready", function() {
 
         }
     });
-    var exitmotor1 = new five.Motor({
-        controller: "PCA9685",
-        address: 0x61,
-        frequency: 200,
-        pins: {
-            pwm: 2,
-            dir: 3,
-            cdir: 4
-        }
-    });
-    var exitmotor2 = new five.Motor({
+    var exitmotor = new five.Motor({
         controller: "PCA9685",
         address: 0x61,
         frequency: 200,
@@ -176,8 +166,8 @@ board.on("ready", function() {
         nute3: nute3,
         nute4: nute4,
         nute5: nute5,
-        exitmotor1: exitmotor1,
-        exitmotor2: exitmotor2
+        exitmotor: exitmotor
+
     });
 
 
