@@ -1,6 +1,6 @@
-
 var five = require("johnny-five"),
     board = new five.Board();
+
 
 board.on("ready", function() {
     var in_sol = new five.Relay({
@@ -79,10 +79,13 @@ board.on("ready", function() {
     });
     pump.off();
 
-    // From the REPL, toggle the lamp on and off by calling:
-    //
-    //   relay.toggle()
-    //
+
+    var motor = new five.Motor({
+        controller: "PCA9685",
+        address: 0x60,
+        pin: 0
+    });
+
     this.repl.inject({
         in_sol: in_sol,
         out_sol: out_sol,
@@ -98,6 +101,10 @@ board.on("ready", function() {
         intake: intake,
         exhaust: exhaust,
         chiller: chiller,
-        pump: pump
+        pump: pump,
+        motor: motor
     });
+
+
 });
+
