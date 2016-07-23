@@ -170,6 +170,17 @@ board.on("ready", function() {
 
     });
 
+    function nute5_start(){
+        nute5.start(255);
+    }
+
+    function nute5_stop(){
+        nute5.stop();
+    }
+
+    nute5_start();
+    setTimeout(nute5_stop,5000);
+
 
 });
 
