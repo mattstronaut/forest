@@ -1,11 +1,25 @@
 var five = require("johnny-five"),
     board = new five.Board();
 var SerialPort = require('serialport').SerialPort;
-var port = new SerialPort('/dev/ttyUSB0');
+var eyeport = new SerialPort('/dev/ttyUSB0');
 
-port.on('data', function (data) {
-    console.log('Data: ' + data);
+var dodata = null;
+var orpdata = null;
+var ecdata = null;
+var phdata = null;
+
+eyeport.on('data', function (data) {
+    var jsoneyesdata = JSON.parse(data);
+    dodata = jsoneyesdata.do;
+    orpdata = jsoneyesdata.orp;
+    ecdata = jsoneyesdata.ec;
+    phdata = jsoneyesdata.ph;
 });
+
+function print_do(){
+    console.log(dodata);
+}
+
 
 board.on("ready", function() {
     var in_sol = new five.Relay({
@@ -171,7 +185,8 @@ board.on("ready", function() {
         nute3: nute3,
         nute4: nute4,
         nute5: nute5,
-        exitmotor: exitmotor
+        exitmotor: exitmotor,
+        print_do: print_do()
 
     });
 
