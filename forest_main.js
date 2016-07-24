@@ -1,6 +1,6 @@
 var five = require("johnny-five"),
     board = new five.Board();
-var SerialPort = require('serialport').SerialPort;
+var SerialPort = require('serialport');
 var eyeport = new SerialPort('/dev/ttyUSB0');
 
 var dodata = null;
