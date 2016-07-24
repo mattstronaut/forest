@@ -3,10 +3,10 @@ var board = new five.Board({ port: "/dev/ttyACM0"});
 var SerialPort = require('serialport');
 var eyeport = new SerialPort('/dev/ttyUSB0');
 
-/*var dodata = null;
+var dodata = null;
 var orpdata = null;
 var ecdata = null;
-var phdata = null;*/
+var phdata = null;
 
 /*eyeport.on('data', function (data) {
     var jsoneyesdata = JSON.parse(data);
@@ -17,12 +17,16 @@ var phdata = null;*/
 });*/
 
 eyeport.on('data', function (data) {
-    console.log(data)
+    json = JSON.parse(data.replace(/ /g,""));
+    dodata = json.do;
+    orpdata = json.orp;
+    ecdata = json.ec;
+    phdata = json.ph;
 });
 
-//function print_do(){
-//    console.log(dodata);
-//}
+function printdo(){
+    console.log(dodata);
+}
 
 
 board.on("ready", function() {
@@ -189,15 +193,18 @@ board.on("ready", function() {
         nute3: nute3,
         nute4: nute4,
         nute5: nute5,
-        exitmotor: exitmotor
-
-})
-    
-
+        exitmotor: exitmotor,
+        printdo: printdo
+    })
 });
-    
 
-    //The following Code is for calibrating nutrient peristaltic pumps
+
+
+
+
+
+
+//The following Code is for calibrating nutrient peristaltic pumps
     //function nute5_start(){
     //    nute5.reverse(255); //this motor is wired backwards, soooo....
     //}
