@@ -1,6 +1,11 @@
 var five = require("johnny-five"),
     board = new five.Board();
+var SerialPort = require('serialport').SerialPort;
+var port = new SerialPort('/dev/ttyUSB0');
 
+port.on('data', function (data) {
+    console.log('Data: ' + data);
+});
 
 board.on("ready", function() {
     var in_sol = new five.Relay({
@@ -47,17 +52,17 @@ board.on("ready", function() {
         type: "NC",
         pin: 30
     });
-    light1.off();
+    light1.on();
     var light2 = new five.Relay({
         type: "NC",
         pin: 31
     });
-    light2.off();
+    light2.on();
     var light3 = new five.Relay({
         type: "NC",
         pin: 32
     });
-    light3.off();
+    light3.on();
     var intake = new five.Relay({
         type: "NC",
         pin: 33
@@ -77,7 +82,7 @@ board.on("ready", function() {
         type: "NC",
         pin: 36
     });
-    pump.off();
+    pump.on();
 
 
     var nute1 = new five.Motor({
@@ -170,16 +175,17 @@ board.on("ready", function() {
 
     });
 
-    function nute5_start(){
-        nute5.start(255);
-    }
+    //The following Code is for calibrating nutrient peristaltic pumps
+    //function nute5_start(){
+    //    nute5.reverse(255); //this motor is wired backwards, soooo....
+    //}
 
-    function nute5_stop(){
-        nute5.stop();
-    }
+    //function nute5_stop(){
+    //    nute5.stop();
+    //}
 
-    nute5_start();
-    setTimeout(nute5_stop,5000);
+    //nute5_start();
+    //setTimeout(nute5_stop,5000);
 
 
 });
