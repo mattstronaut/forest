@@ -1,6 +1,6 @@
-var five = require("johnny-five"),
-    board = new five.Board();
-var SerialPort = require('serialport');
+var five = require("johnny-five");
+var board = new five.Board({ port: "/dev/ttyACM0"});
+var SerialPort = require('serialport').SerialPort;
 var eyeport = new SerialPort('/dev/ttyUSB0');
 
 var dodata = null;
@@ -16,9 +16,9 @@ eyeport.on('data', function (data) {
     phdata = jsoneyesdata.ph;
 });
 
-function print_do(){
-    console.log(dodata);
-}
+//function print_do(){
+//    console.log(dodata);
+//}
 
 
 board.on("ready", function() {
@@ -185,10 +185,13 @@ board.on("ready", function() {
         nute3: nute3,
         nute4: nute4,
         nute5: nute5,
-        exitmotor: exitmotor,
-        print_do: print_do()
+        exitmotor: exitmotor
 
-    });
+})
+    
+
+});
+    
 
     //The following Code is for calibrating nutrient peristaltic pumps
     //function nute5_start(){
@@ -202,6 +205,4 @@ board.on("ready", function() {
     //nute5_start();
     //setTimeout(nute5_stop,5000);
 
-
-});
 
