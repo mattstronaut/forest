@@ -1,8 +1,8 @@
 var five = require("johnny-five");
 var board = new five.Board({ port: "/dev/ttyACM0"});
 var serialport = require('serialport');
-var SerialPort = serialport.SerialPort;
-var eyeport = new SerialPort('/dev/ttyUSB0', {
+//var SerialPort = serialport.SerialPort;
+var eyeport = new serialport('/dev/ttyUSB0', {
     parser: serialport.parsers.readline('\n'),
     baudrate: 38400
 });
@@ -219,7 +219,7 @@ board.on("ready", function() {
         printo2: printo2,
         printorp: printorp,
         printec: printec,
-        printph: printph 
+        printph: printph
     })
 });
 
