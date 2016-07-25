@@ -11,6 +11,9 @@ var o2data = null;
 var orpdata = null;
 var ecdata = null;
 var phdata = null;
+var nute_temp = null;
+var canopy_temp = null;
+var canopy_rh = null;
 var eyejson = null;
 
 eyeport.on('data', function (data) {
@@ -28,6 +31,9 @@ eyeport.on('data', function (data) {
     orpdata = json.orp;
     ecdata = json.ec;
     phdata = json.ph;
+    nute_temp = json.nute_temp;
+    canopy_temp = json.canopy_temp;
+    canopy_rh = json.canopy_rh;
     eyejson = data;
     eyeport.flush(function(err,results){});
 });
