@@ -40,6 +40,15 @@ eyeport.on('data', function (data) {
 function printo2(){
     console.log(o2data);
 }
+function printorp(){
+    console.log(orpdatadata);
+}
+function printec(){
+    console.log(ecdata);
+}
+function printph(){
+    console.log(phdata);
+}
 
 
 board.on("ready", function() {
@@ -207,7 +216,10 @@ board.on("ready", function() {
         nute4: nute4,
         nute5: nute5,
         exitmotor: exitmotor,
-        printo2: printo2
+        printo2: printo2,
+        printorp: printorp,
+        printec: printec,
+        printph: printph 
     })
 });
 
