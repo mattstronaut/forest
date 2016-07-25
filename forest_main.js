@@ -14,6 +14,7 @@ var phdata = null;
 var nute_temp = null;
 var canopy_temp = null;
 var canopy_rh = null;
+var nute_level = null;
 var eyejson = null;
 
 eyeport.on('data', function (data) {
@@ -34,6 +35,7 @@ eyeport.on('data', function (data) {
     nute_temp = json.nute_temp;
     canopy_temp = json.canopy_temp;
     canopy_rh = json.canopy_rh;
+    nute_level = json.nute_level;
     eyejson = data;
     eyeport.flush(function(err,results){});
 });
