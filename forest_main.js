@@ -11,14 +11,7 @@ var o2data = null;
 var orpdata = null;
 var ecdata = null;
 var phdata = null;
-
-/*eyeport.on('data', function (data) {
-    var jsoneyesdata = JSON.parse(data);
-    dodata = jsoneyesdata.do;
-    orpdata = jsoneyesdata.orp;
-    ecdata = jsoneyesdata.ec;
-    phdata = jsoneyesdata.ph;
-});*/
+var eyejson = null;
 
 eyeport.on('data', function (data) {
     data = data.toString().replace(/\\n/g, "\\n")
@@ -35,20 +28,13 @@ eyeport.on('data', function (data) {
     orpdata = json.orp;
     ecdata = json.ec;
     phdata = json.ph;
+    eyejson = data;
 });
 
-function printo2(){
-    console.log(o2data);
+function printeye(){
+    console.log(eyejson);
 }
-function printorp(){
-    console.log(orpdatadata);
-}
-function printec(){
-    console.log(ecdata);
-}
-function printph(){
-    console.log(phdata);
-}
+
 
 
 board.on("ready", function() {
@@ -216,10 +202,7 @@ board.on("ready", function() {
         nute4: nute4,
         nute5: nute5,
         exitmotor: exitmotor,
-        printo2: printo2,
-        printorp: printorp,
-        printec: printec,
-        printph: printph
+        printeye: printeye
     })
 });
 
@@ -230,15 +213,15 @@ board.on("ready", function() {
 
 
 //The following Code is for calibrating nutrient peristaltic pumps
-    //function nute5_start(){
-    //    nute5.reverse(255); //this motor is wired backwards, soooo....
-    //}
+    function nute5_start(){
+        nute5.reverse(255); //this motor is wired backwards, soooo....
+    }
 
-    //function nute5_stop(){
-    //    nute5.stop();
-    //}
+    function nute5_stop(){
+        nute5.stop();
+    }
 
-    //nute5_start();
-    //setTimeout(nute5_stop,5000);
+    nute5_start();
+    setTimeout(nute5_stop,5000);
 
 
