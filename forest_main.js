@@ -17,7 +17,7 @@ var phdata = null;
 });*/
 
 eyeport.on('data', function (data) {
-    data = data.replace(/\\n/g, "\\n")
+    data = data.toString().replace(/\\n/g, "\\n")
         .replace(/\\'/g, "\\'")
         .replace(/\\"/g, '\\"')
         .replace(/\\&/g, "\\&")
