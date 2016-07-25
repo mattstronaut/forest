@@ -3,7 +3,7 @@ var board = new five.Board({ port: "/dev/ttyACM0"});
 var SerialPort = require('serialport');
 var eyeport = new SerialPort('/dev/ttyUSB0');
 
-var dodata = null;
+var o2data = null;
 var orpdata = null;
 var ecdata = null;
 var phdata = null;
@@ -17,15 +17,15 @@ var phdata = null;
 });*/
 
 eyeport.on('data', function (data) {
-    json = JSON.parse(data.replace(/ /g,""));
-    dodata = json.do;
+    json = JSON.parse(data);
+    o2data = json.o2;
     orpdata = json.orp;
     ecdata = json.ec;
     phdata = json.ph;
 });
 
-function printdo(){
-    console.log(dodata);
+function printo2(){
+    console.log(o2data);
 }
 
 
@@ -194,7 +194,7 @@ board.on("ready", function() {
         nute4: nute4,
         nute5: nute5,
         exitmotor: exitmotor,
-        printdo: printdo
+        printo2: printo2
     })
 });
 
