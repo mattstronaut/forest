@@ -17,6 +17,15 @@ var phdata = null;
 });*/
 
 eyeport.on('data', function (data) {
+    data = data.replace(/\\n/g, "\\n")
+        .replace(/\\'/g, "\\'")
+        .replace(/\\"/g, '\\"')
+        .replace(/\\&/g, "\\&")
+        .replace(/\\r/g, "\\r")
+        .replace(/\\t/g, "\\t")
+        .replace(/\\b/g, "\\b")
+        .replace(/\\f/g, "\\f");
+    data = data.replace(/[\u0000-\u0019]+/g,"");
     json = JSON.parse(data);
     o2data = json.o2;
     orpdata = json.orp;
