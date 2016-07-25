@@ -29,6 +29,7 @@ eyeport.on('data', function (data) {
     ecdata = json.ec;
     phdata = json.ph;
     eyejson = data;
+    eyeport.flush(function(err,results){});
 });
 
 function printeye(){
@@ -203,25 +204,21 @@ board.on("ready", function() {
         nute5: nute5,
         exitmotor: exitmotor,
         printeye: printeye
-    })
-});
-
-
-
-
-
+    });
 
 
 //The following Code is for calibrating nutrient peristaltic pumps
-    function nute5_start(){
+   /* function nute5_start() {
         nute5.reverse(255); //this motor is wired backwards, soooo....
     }
 
-    function nute5_stop(){
+    function nute5_stop() {
         nute5.stop();
     }
 
     nute5_start();
-    setTimeout(nute5_stop,5000);
+    setTimeout(nute5_stop, 10000);*/
+});
+
 
 
