@@ -229,9 +229,9 @@ board.on("ready", function() {
     setTimeout(nute5_stop, 10000);*/
 
     //functions for calling nutex for given time
-    function nutex_timer(nute_name, time){
-        nute_name.reverse(255);
-        setTimeout(nute_name.stop, time);
+    function nutex_timer(){
+        nute5.reverse(255);
+        setTimeout(nute5.stop, 5000);
 
     }
 
