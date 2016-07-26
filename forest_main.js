@@ -211,12 +211,13 @@ board.on("ready", function() {
         nute4: nute4,
         nute5: nute5,
         exitmotor: exitmotor,
-        printeye: printeye
+        printeye: printeye,
+        nutex_timer: nutex_timer
     });
 
 
-//The following Code is for calibrating nutrient peristaltic pumps
-   /* function nute5_start() {
+    //The following Code is for calibrating nutrient peristaltic pumps
+    /* function nute5_start() {
         nute5.reverse(255); //this motor is wired backwards, soooo....
     }
 
@@ -226,6 +227,14 @@ board.on("ready", function() {
 
     nute5_start();
     setTimeout(nute5_stop, 10000);*/
+
+    //functions for calling nutex for given time
+    function nutex_timer(nute_name, time){
+        nute_name.reverse(255);
+        setTimeout(nute_name.stop, time);
+
+    }
+
 });
 
 
