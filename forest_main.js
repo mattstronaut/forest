@@ -18,6 +18,7 @@ var nute_level = null;
 var eyejson = null;
 
 eyeport.on('data', function (data) {
+    eyeport.flush(function(err,results){});
     data = data.toString().replace(/\\n/g, "\\n")
         .replace(/\\'/g, "\\'")
         .replace(/\\"/g, '\\"')
