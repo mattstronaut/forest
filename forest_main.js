@@ -232,7 +232,10 @@ board.on("ready", function() {
     //functions for calling nutex for given time
     function nutex_timer(nutename, time){
         nutename.reverse(255);
-        setTimeout(nutename.stop, time);
+        setTimeout(nutex_stop, time);
+        function nutex_stop(){
+            nutename.stop();
+        }
 
     }
 
