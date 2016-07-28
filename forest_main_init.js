@@ -190,7 +190,6 @@ board.on("ready", function() {
         }
     });
 
-    process.exit(); //this code is here for the init version of the app to be run when forest first logs in
 
 
     this.repl.inject({
@@ -218,6 +217,8 @@ board.on("ready", function() {
         printeye: printeye,
         nutex_timer: nutex_timer
     });
+    process.exit(); //this code is here for the init version of the app to be run when forest first logs in
+
 
 
     //The following Code is for calibrating nutrient peristaltic pumps
