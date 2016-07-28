@@ -7,6 +7,7 @@ var eyeport = new serialport('/dev/ttyUSB0', {
     baudrate: 38400
 });
 
+
 var o2data = null;
 var orpdata = null;
 var ecdata = null;
@@ -77,22 +78,22 @@ board.on("ready", function() {
         type: "NC",
         pin: 27
     });
-    ac.off();
+    ac.on();
     var fans = new five.Relay({
         type: "NC",
         pin: 28
     });
-    fans.off();
+    fans.on();
     var ozzie = new five.Relay({
         type: "NC",
         pin: 29
     });
-    ozzie.off();
+    ozzie.on();
     var light1 = new five.Relay({
         type: "NC",
         pin: 30
     });
-    light1.on();
+    //light1.on();
     var light2 = new five.Relay({
         type: "NC",
         pin: 31
