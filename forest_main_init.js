@@ -1,102 +1,127 @@
-var SerialPort = require("serialport");
 var five = require("johnny-five");
-var ports = [
-    {id: "eyes", port: new SerialPort("/dev/ttyUSB0", {
-    baudrate: 9600,
-    buffersize: 1
-})},
-    {id: "fingers", port: "/dev/ttyACM0"}
-];
+var board = new five.Board({ port: "/dev/ttyACM0"});
+var serialport = require('serialport');
+//var SerialPort = serialport.SerialPort;
+var eyeport = new serialport('/dev/ttyUSB0', {
+    parser: serialport.parsers.readline('\n'),
+    baudrate: 38400
+});
 
-new five.Boards(ports).on("ready", function() {
+
+var o2data = null;
+var orpdata = null;
+var ecdata = null;
+var phdata = null;
+var nute_temp = null;
+var canopy_temp = null;
+var canopy_rh = null;
+var nute_level = null;
+var eyejson = null;
+
+eyeport.on('data', function (data) {
+    eyeport.flush(function(err,results){});
+    data = data.toString().replace(/\\n/g, "\\n")
+        .replace(/\\'/g, "\\'")
+        .replace(/\\"/g, '\\"')
+        .replace(/\\&/g, "\\&")
+        .replace(/\\r/g, "\\r")
+        .replace(/\\t/g, "\\t")
+        .replace(/\\b/g, "\\b")
+        .replace(/\\f/g, "\\f");
+    data = data.replace(/[\u0000-\u0019]+/g,"");
+    json = JSON.parse(data);
+    o2data = json.o2;
+    orpdata = json.orp;
+    ecdata = json.ec;
+    phdata = json.ph;
+    nute_temp = json.nute_temp;
+    canopy_temp = json.canopy_temp;
+    canopy_rh = json.canopy_rh;
+    nute_level = json.nute_level;
+    eyejson = data;
+    eyeport.flush(function(err,results){});
+});
+
+function printeye(){
+    console.log(eyejson);
+}
+
+
+
+board.on("ready", function() {
     var in_sol = new five.Relay({
         type: "NC",
-        pin: 22,
-        board: this.byId("fingers")
+        pin: 22
     });
     in_sol.off();
     var out_sol = new five.Relay({
         type: "NC",
-        pin: 23,
-        board: this.byId("fingers")
+        pin: 23
     });
     out_sol.off();
     var exit_sol = new five.Relay({
         type: "NC",
-        pin: 24,
-        board: this.byId("fingers")
+        pin: 24
     });
     exit_sol.off();
     var soak_sol = new five.Relay({
         type: "NC",
-        pin: 25,
-        board: this.byId("fingers")
+        pin: 25
     });
     soak_sol.off();
     var mist_sol = new five.Relay({
         type: "NC",
-        pin: 26,
-        board: this.byId("fingers")
+        pin: 26
     });
     mist_sol.off();
     var ac = new five.Relay({
         type: "NC",
-        pin: 27,
-        board: this.byId("fingers")
+        pin: 27
     });
-    ac.off();
+    ac.on();
     var fans = new five.Relay({
         type: "NC",
-        pin: 28,
-        board: this.byId("fingers")
+        pin: 28
     });
-    fans.off();
+    fans.on();
     var ozzie = new five.Relay({
         type: "NC",
-        pin: 29,
-        board: this.byId("fingers")
+        pin: 29
     });
-    ozzie.off();
+    ozzie.on();
     var light1 = new five.Relay({
         type: "NC",
-        pin: 30,
-        board: this.byId("fingers")
+        pin: 30
     });
-    light1.on();
+    //light1.on();
     var light2 = new five.Relay({
         type: "NC",
-        pin: 31,
-        board: this.byId("fingers")
+        pin: 31
     });
     light2.on();
     var light3 = new five.Relay({
         type: "NC",
-        pin: 32,
-        board: this.byId("fingers")
+        pin: 32
     });
     light3.on();
     var intake = new five.Relay({
         type: "NC",
-        pin: 33,
-        board: this.byId("fingers")
+        pin: 33
     });
     intake.off();
     var exhaust = new five.Relay({
         type: "NC",
-        pin: 34,
-        board: this.byId("fingers")
+        pin: 34
     });
     exhaust.off();
     var chiller = new five.Relay({
         type: "NC",
-        pin: 35,
-        board: this.byId("fingers")
+        pin: 35
     });
     chiller.off();
     var pump = new five.Relay({
         type: "NC",
-        pin: 36,
-        board: this.byId("fingers")
+        pin: 36
     });
     pump.on();
 
@@ -109,8 +134,7 @@ new five.Boards(ports).on("ready", function() {
             pwm: 8,
             dir: 9,
             cdir: 10
-        },
-        board: this.byId("fingers")
+        }
     });
 
     var nute2 = new five.Motor({
@@ -121,8 +145,7 @@ new five.Boards(ports).on("ready", function() {
             pwm: 13,
             dir: 12,
             cdir: 11
-        },
-        board: this.byId("fingers")
+        }
     });
     var nute3 = new five.Motor({
         controller: "PCA9685",
@@ -132,8 +155,7 @@ new five.Boards(ports).on("ready", function() {
             pwm: 2,
             dir: 3,
             cdir: 4
-        },
-        board: this.byId("fingers")
+        }
 
     });
     var nute4 = new five.Motor({
@@ -144,8 +166,7 @@ new five.Boards(ports).on("ready", function() {
             pwm: 7,
             dir: 6,
             cdir: 5
-        },
-        board: this.byId("fingers")
+        }
     });
     var nute5 = new five.Motor({
         controller: "PCA9685",
@@ -155,8 +176,8 @@ new five.Boards(ports).on("ready", function() {
             pwm: 8,
             dir: 9,
             cdir: 10
-        },
-        board: this.byId("fingers")
+
+        }
     });
     var exitmotor = new five.Motor({
         controller: "PCA9685",
@@ -166,9 +187,9 @@ new five.Boards(ports).on("ready", function() {
             pwm: 7,
             dir: 6,
             cdir: 5
-        },
-        board: this.byId("fingers")
+        }
     });
+
 
     this.repl.inject({
         in_sol: in_sol,
@@ -191,7 +212,39 @@ new five.Boards(ports).on("ready", function() {
         nute3: nute3,
         nute4: nute4,
         nute5: nute5,
-        exitmotor: exitmotor
+        exitmotor: exitmotor,
+        printeye: printeye,
+        nutex_timer: nutex_timer
     });
 
+
+    //The following Code is for calibrating nutrient peristaltic pumps
+    /* function nute5_start() {
+        nute5.reverse(255); //this motor is wired backwards, soooo....
+    }
+
+    function nute5_stop() {
+        nute5.stop();
+    }
+
+    nute5_start();
+    setTimeout(nute5_stop, 10000);*/
+
+    //functions for calling nutex for given time
+    function nutex_timer(nutename, time){
+        nutename.reverse(255);
+        setTimeout(nutex_stop, time);
+        function nutex_stop(){
+            nutename.stop();
+        }
+
+    }
+
 });
+
+process.exit();
+
+
+
+
+
