@@ -7,6 +7,7 @@ var eyeport = new serialport('/dev/ttyUSB0', {
     baudrate: 38400
 });
 
+process.exitCode = 1;
 
 var o2data = null;
 var orpdata = null;
@@ -239,10 +240,10 @@ board.on("ready", function() {
         }
 
     }
-
+    
 });
 
-setTimeout(process.exit(), 2000);
+throw new Error("1");
 
 
 
