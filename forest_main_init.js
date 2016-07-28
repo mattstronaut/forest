@@ -217,10 +217,7 @@ board.on("ready", function() {
         printeye: printeye,
         nutex_timer: nutex_timer
     });
-    process.exit(); //this code is here for the init version of the app to be run when forest first logs in
-
-
-
+    
     //The following Code is for calibrating nutrient peristaltic pumps
     /* function nute5_start() {
         nute5.reverse(255); //this motor is wired backwards, soooo....
@@ -245,7 +242,7 @@ board.on("ready", function() {
 
 });
 
-
+setTimeout(process.exit(), 2000);
 
 
 
