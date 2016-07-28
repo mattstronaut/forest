@@ -190,6 +190,8 @@ board.on("ready", function() {
         }
     });
 
+    process.exit(); //this code is here for the init version of the app to be run when forest first logs in
+
 
     this.repl.inject({
         in_sol: in_sol,
@@ -242,7 +244,7 @@ board.on("ready", function() {
 
 });
 
-process.exit();
+
 
 
 
