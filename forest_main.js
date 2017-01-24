@@ -93,7 +93,7 @@ board.on("ready", function() {
         type: "NC",
         pin: 30
     });
-    //light1.on();
+    light1.on();
     var light2 = new five.Relay({
         type: "NC",
         pin: 31
@@ -118,7 +118,7 @@ board.on("ready", function() {
         type: "NC",
         pin: 35
     });
-    chiller.off();
+    chiller.on();
     var pump = new five.Relay({
         type: "NC",
         pin: 36
@@ -214,7 +214,8 @@ board.on("ready", function() {
         nute5: nute5,
         exitmotor: exitmotor,
         printeye: printeye,
-        nutex_timer: nutex_timer
+        nutex_timer: nutex_timer,
+        mist_timer:mist_timer
     });
 
 
@@ -237,6 +238,16 @@ board.on("ready", function() {
         function nutex_stop(){
             nutename.stop();
         }
+
+    }
+    function mist_timer(misttime){
+        mist_sol.on();
+        setTimeout(miststop, misttime);
+        function miststop() {
+            mist_sol.off();
+        }
+        
+        
 
     }
 
