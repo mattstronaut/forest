@@ -256,8 +256,12 @@ board.on("ready", function() {
     }*/
 
     function mist_timer(time_on,time_off){
-        setInterval(mist_sol.off(), time_on)
-        setInterval(mist_sol.on(), time_off)
+        setInterval(function mistoff(){
+            mist_sol.off();
+        }, time_on);
+        setInterval(function miston() {
+            mist_sol.on();
+        }, time_off);
     }
 
 });
