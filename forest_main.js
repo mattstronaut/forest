@@ -240,15 +240,24 @@ board.on("ready", function() {
         }
 
     }
-    function mist_timer(misttime){
+    /*function mist_timer(time_on,time_off){
         mist_sol.on();
-        setTimeout(miststop, misttime);
+        setTimeout(miststop, time_on);
+        setTimeout(miststart, time_off);
         function miststop() {
             mist_sol.off();
+        }
+        function miststart() {
+            mist.sol.on();
         }
         
         
 
+    }*/
+
+    function mist_timer(time_on,time_off){
+        setInterval(mist_sol.off(), time_on)
+        setInterval(mist_sol.on(), time_off)
     }
 
 });
