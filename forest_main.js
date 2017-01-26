@@ -273,10 +273,10 @@ board.on("ready", function() {
         //noinspection JSUnusedAssignment
         mistinterval = setInterval(function mistschedule() {
             mist_sol.off();
-            setTimeout(function mistoff() {
+            setTimeout(function miston() {
                 mist_sol.on();
             }, time_off)
-        }, time_on);
+        }, time_on+time_off);
         }
 });
 
