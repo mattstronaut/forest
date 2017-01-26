@@ -17,6 +17,7 @@ var canopy_temp = null;
 var canopy_rh = null;
 var nute_level = null;
 var eyejson = null;
+var mistinterval;
 
 eyeport.on('data', function (data) {
     eyeport.flush(function(err,results){});
@@ -215,7 +216,8 @@ board.on("ready", function() {
         exitmotor: exitmotor,
         printeye: printeye,
         nutex_timer: nutex_timer,
-        mist_timer:mist_timer
+        mist_timer:mist_timer,
+        clearmisttimer:clearmisttimer
     });
 
 
@@ -269,13 +271,18 @@ board.on("ready", function() {
 //Third time's a charm
     function mist_timer(time_on, time_off){
         mist_sol.on();
-        var mistinterval = setInterval(function mistschedule() {
+        mistinterval = setInterval(function mistschedule() {
             mist_sol.off();
             setTimeout(function miston() {
                 mist_sol.on();
             }, time_off)
-        }, time_on+time_off);
+        }, time_on + time_off);
         }
+    function clearmisttimer() {
+        clearInterval(mistinterval);
+    }
+
+    
 });
 
 
