@@ -268,7 +268,7 @@ board.on("ready", function() {
 
 //Third time's a charm
     function mist_timer(time_on, time_off){
-        setInterval(function mistschedule(){
+        var mistinterval = setInterval(function mistschedule(){
             mist_sol.on();
             setTimeout(function mistoff() {
                 mist_sol.off();
