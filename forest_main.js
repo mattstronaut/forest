@@ -268,13 +268,15 @@ board.on("ready", function() {
 
 //Third time's a charm
     function mist_timer(time_on, time_off){
+        mist_sol.on();
         var mistinterval;
+        //noinspection JSUnusedAssignment
         mistinterval = setInterval(function mistschedule() {
-            mist_sol.on();
+            mist_sol.off();
             setTimeout(function mistoff() {
-                mist_sol.off();
-            }, time_on)
-        }, time_off + time_on);
+                mist_sol.on();
+            }, time_off)
+        }, time_on);
         }
 });
 
