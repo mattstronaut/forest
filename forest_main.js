@@ -269,9 +269,7 @@ board.on("ready", function() {
 //Third time's a charm
     function mist_timer(time_on, time_off){
         mist_sol.on();
-        var mistinterval;
-        //noinspection JSUnusedAssignment
-        mistinterval = setInterval(function mistschedule() {
+        var mistinterval = setInterval(function mistschedule() {
             mist_sol.off();
             setTimeout(function miston() {
                 mist_sol.on();
