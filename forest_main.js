@@ -240,7 +240,9 @@ board.on("ready", function() {
         }
 
     }
-    /*function mist_timer(time_on,time_off){
+    /* The following is the first attempt at timing the mist solenoid
+    
+    function mist_timer(time_on,time_off){
         mist_sol.on();
         setTimeout(miststop, time_on);
         setTimeout(miststart, time_off);
@@ -250,11 +252,11 @@ board.on("ready", function() {
         function miststart() {
             mist.sol.on();
         }
-        
-        
 
-    }*/
+     */
 
+    
+/*This is the second attempt
     function mist_timer(time_on,time_off){
         setInterval(function mistoff(){
             mist_sol.off();
@@ -262,8 +264,17 @@ board.on("ready", function() {
         setInterval(function miston() {
             mist_sol.on();
         }, time_off);
-    }
+    } */
 
+//Third time's a charm
+    function mist_timer(time_on, time_off){
+        setInterval(function mistschedule(){
+            mist_sol.on();
+            setTimeout(function mistoff() {
+                mist_sol.off();
+            }, time_on)
+            }, time_off+time_on);
+        }
 });
 
 
