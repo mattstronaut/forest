@@ -1,3 +1,4 @@
+var cron = require('node-cron');
 var five = require("johnny-five");
 var board = new five.Board({ port: "/dev/ttyACM0"});
 var serialport = require('serialport');
@@ -6,7 +7,7 @@ var eyeport = new serialport('/dev/ttyUSB0', {
     parser: serialport.parsers.readline('\n'),
     baudrate: 38400
 });
-var CronJob = require('cron').CronJob;
+
 
 var o2data = null;
 var orpdata = null;
@@ -248,16 +249,18 @@ board.on("ready", function() {
     }
 
     //functions for setting time of mist_sol time_off and time_on are in ms
-    function misttimer(onstr, offstr){
-        var mistjobon = new CronJob(onstr, function() {
+    function misttimer(onstr, durr) {
+        var mistjobon = cron.schedule(onstr, function () {
             mist_sol.on();
+            setTimeout(miststop, durr);
+            function miststop() {
+                mist_sol.off();
+            }
         },
-            true)
-        var mistjoboff = new CronJob(offstr, function() {
-            mist_sol.off();
-        },
-            true)
-    }
+        true)
+
+}
+
     /*disabling to test with new Cron method
 
     function mist_timer(time_on, time_off){
