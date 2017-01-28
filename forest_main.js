@@ -6,7 +6,7 @@ var eyeport = new serialport('/dev/ttyUSB0', {
     parser: serialport.parsers.readline('\n'),
     baudrate: 38400
 });
-
+var CronJob = require('cron').CronJob;
 
 var o2data = null;
 var orpdata = null;
@@ -217,7 +217,11 @@ board.on("ready", function() {
         printeye: printeye,
         nutex_timer: nutex_timer,
         mist_timer:mist_timer,
-        clearmisttimer:clearmisttimer
+        clearmisttimer:clearmisttimer,
+        lightson:lightson,
+        lightsoff:lightsoff,
+        misttimer:misttimer,
+        lighttimer:lighttimer
     });
 
 
@@ -242,33 +246,25 @@ board.on("ready", function() {
         }
 
     }
-    /* The following is the first attempt at timing the mist solenoid
-    
-    function mist_timer(time_on,time_off){
-        mist_sol.on();
-        setTimeout(miststop, time_on);
-        setTimeout(miststart, time_off);
-        function miststop() {
-            mist_sol.off();
-        }
-        function miststart() {
-            mist.sol.on();
-        }
 
-     */
-
-    
-/*This is the second attempt
-    function mist_timer(time_on,time_off){
-        setInterval(function mistoff(){
-            mist_sol.off();
-        }, time_on);
-        setInterval(function miston() {
+    //functions for setting time of mist_sol time_off and time_on are in ms
+    function misttimer(onstr, offstr){
+        var mistjobon = new CronJob(onstr, function() {
             mist_sol.on();
-        }, time_off);
-    } */
+        },
+            true,
+            timeZone: 'America/Boston'
+    )
+        var mistjoboff = new CronJob(offstr, function() {
+            mist_sol.off();
+        },
+            true,
+            timeZone: 'America/Boston'
 
-//Third time's a charm
+        )
+    }
+    /*disabling to test with new Cron method
+
     function mist_timer(time_on, time_off){
         mist_sol.on();
         mistinterval = setInterval(function mistschedule() {
@@ -281,8 +277,35 @@ board.on("ready", function() {
     function clearmisttimer() {
         clearInterval(mistinterval);
     }
+    */
 
-    
+    //this next section is for controlling and timing lights. Different method using cron from npm
+    // onstr and offstr are cron syntax strings. See https://www.npmjs.com/package/cron
+    function lightson(){
+        light1.on();
+        light2.on();
+        light3.on();
+    }
+    function lightsoff(){
+        light1.off();
+        light2.off();
+        light3.off();
+    }
+    function lighttimer(onstr, offstr){
+        var lightjobon = new CronJob(onstr, function() {
+            lightson();
+        },
+            true,
+            timeZone: 'America/Boston'
+    )
+        var lightjoboff = new CronJob(offstr, function() {
+            lightsoff();
+        },
+            true,
+            timeZone: 'America/Boston'
+    )
+    }
+
 });
 
 
