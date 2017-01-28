@@ -256,9 +256,10 @@ board.on("ready", function() {
                 mist_sol.off();
             }
         },
-        true)
+            true);
+        mistjobon.start();
 
-}
+    }
 
     /*disabling to test with new Cron method
 
@@ -288,15 +289,14 @@ board.on("ready", function() {
         light2.off();
         light3.off();
     }
-    function lighttimer(onstr, offstr){
-        var lightjobon = new CronJob(onstr, function() {
+    function lighttimer(onstr, durr){
+        var lightjobon = cron.schedule(onstr, function() {
             lightson();
+            setTimeout(lightsoff(), durr);
         },
-            true)
-        var lightjoboff = new CronJob(offstr, function() {
-            lightsoff();
-        },
-            true)
+            true);
+        lightjobon.start();
+
     }
 
 });
