@@ -216,7 +216,7 @@ board.on("ready", function() {
         exitmotor: exitmotor,
         printeye: printeye,
         nutex_timer: nutex_timer,
-        mist_timer:mist_timer,
+        //mist_timer:mist_timer,
         clearmisttimer:clearmisttimer,
         lightson:lightson,
         lightsoff:lightsoff,
