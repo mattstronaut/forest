@@ -252,16 +252,11 @@ board.on("ready", function() {
         var mistjobon = new CronJob(onstr, function() {
             mist_sol.on();
         },
-            true,
-            timeZone: 'America/Boston'
-    )
+            true)
         var mistjoboff = new CronJob(offstr, function() {
             mist_sol.off();
         },
-            true,
-            timeZone: 'America/Boston'
-
-        )
+            true)
     }
     /*disabling to test with new Cron method
 
@@ -295,15 +290,11 @@ board.on("ready", function() {
         var lightjobon = new CronJob(onstr, function() {
             lightson();
         },
-            true,
-            timeZone: 'America/Boston'
-    )
+            true)
         var lightjoboff = new CronJob(offstr, function() {
             lightsoff();
         },
-            true,
-            timeZone: 'America/Boston'
-    )
+            true)
     }
 
 });
