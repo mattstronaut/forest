@@ -284,15 +284,16 @@ board.on("ready", function() {
         light2.on();
         light3.on();
     }
-    function lightsoff(){
-        light1.off();
-        light2.off();
-        light3.off();
-    }
+
     function lighttimer(onstr, durr){
         var lightjobon = cron.schedule(onstr, function() {
             lightson();
             setTimeout(lightsoff(), durr);
+                function lightsoff(){
+                    light1.off();
+                    light2.off();
+                    light3.off();
+                }
         },
             true);
         lightjobon.start();
