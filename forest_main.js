@@ -251,9 +251,11 @@ board.on("ready", function() {
     function misttimer(onstr, durr) {
         var mistjobon = cron.schedule(onstr, function () {
             mist_sol.on();
+            soak_sol.on();
             setTimeout(miststop, durr);
             function miststop() {
                 mist_sol.off();
+                soak_sol.off();
             }
         },
             true);
@@ -292,12 +294,12 @@ board.on("ready", function() {
     function lighttimer(onstr, durr){
         var lightjobon = cron.schedule(onstr, function() {
             lightson();
-            setTimeout(godark(), durr);
-            function godark() {
+            setTimeout(function godark(){
                 light1.off();
                 light2.off();
                 light3.off();
-            }
+            }, durr);
+
 
         },
             true);
