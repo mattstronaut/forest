@@ -17,7 +17,6 @@ var canopy_temp = null;
 var canopy_rh = null;
 var nute_level = null;
 var eyejson = null;
-var mistinterval;
 
 eyeport.on('data', function (data) {
     eyeport.flush(function(err,results){});
@@ -124,7 +123,7 @@ board.on("ready", function() {
         type: "NC",
         pin: 36
     });
-    pump.on();
+    pump.off();
 
 
     var nute1 = new five.Motor({
@@ -252,10 +251,12 @@ board.on("ready", function() {
         var mistjobon = cron.schedule(onstr, function () {
             mist_sol.on();
             soak_sol.on();
+            pump.on();
             setTimeout(miststop, durr);
             function miststop() {
                 mist_sol.off();
                 soak_sol.off();
+                pump.off();
             }
         },
             true);
@@ -291,19 +292,16 @@ board.on("ready", function() {
         light2.off();
         light3.off();
     }
-    function lighttimer(onstr, durr){
+    function lighttimer(onstr, offstr){
         var lightjobon = cron.schedule(onstr, function() {
             lightson();
-            setTimeout(function godark(){
-                light1.off();
-                light2.off();
-                light3.off();
-            }, durr);
+        }, true);
+        var lightjoboff = cron.schedule(offstr, function() {
+            lightsoff();
+        }, true);
 
-
-        },
-            true);
         lightjobon.start();
+        lightjoboff.start();
 
     }
 
