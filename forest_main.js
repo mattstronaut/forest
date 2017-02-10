@@ -123,7 +123,7 @@ board.on("ready", function() {
         type: "NC",
         pin: 36
     });
-    pump.off();
+    pump.on();
 
 
     var nute1 = new five.Motor({
@@ -256,7 +256,6 @@ board.on("ready", function() {
             function miststop() {
                 mist_sol.off();
                 soak_sol.off();
-                pump.off();
             }
         },
             true);
