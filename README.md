@@ -1,1 +1,1 @@
-# Hi there. This is forest, the control system for my NFT/Aeroponic hybrid hydroponic system. They measure and adjust temperature, pH, EC, DO, ORP, humidity, nutrient level, and a wide variety of electronic appliances. 
+# Hi there. This is forest, the control system for my NFT/Aeroponic hybrid hydroponic system. It measures and adjusts temperature, pH, EC, DO, ORP, humidity, nutrient level, and a wide variety of electronic appliances. 
